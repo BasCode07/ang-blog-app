@@ -16,26 +16,26 @@ export class CategoriesService {
 
     this.afs.collection('categories').add(data).then(docRef => {
       this.toastr.success('Data insert successfully')
-
     }).catch(e => {
       console.log(e);
     })
   }
 
+//reading Data from firebase
   loadData(){
    return this.afs.collection('categories')
     .snapshotChanges()
     .pipe(map(actions => {
      return actions.map(a => {
-
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;
         return {id, data};
 
       })
     }))
-  }
 
+  }
+//updating Data 
   updateData(id:string, editData:any){
     this.afs.collection('categories').doc(id).update(editData).then(docRef => {
       this.toastr.success('Data updated successfully..!');
@@ -43,7 +43,7 @@ export class CategoriesService {
     })
 
   }
-
+ //deleting data
   deleteData(id: string){
     this.afs.collection('categories').doc(id).delete().then(docRef => {
       this.toastr.success('Data Deleted..!');
